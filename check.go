@@ -14,6 +14,8 @@ type Version struct {
 	Patch int `json:"patch"`
 }
 
+const format = "v%d.%d.%d"
+
 func Check(cur Version, url string) (rel Release, err error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -33,8 +35,14 @@ func Check(cur Version, url string) (rel Release, err error) {
 	return
 }
 
+func ParseVersion(s string) Version {
+	var ver Version
+	fmt.Sscanf(format, s, &ver.Major, &ver.Minor, &ver.Patch)
+	return ver
+}
+
 func (v Version) String() string {
-	return fmt.Sprintf("v%d.%d.%d", v.Major, v.Minor, v.Patch)
+	return fmt.Sprintf(format, v.Major, v.Minor, v.Patch)
 }
 
 func (v Version) after(o Version) bool {
