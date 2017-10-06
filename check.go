@@ -37,7 +37,7 @@ func Check(cur Version, url string) (rel Release, err error) {
 
 func ParseVersion(s string) Version {
 	var ver Version
-	fmt.Sscanf(format, s, &ver.Major, &ver.Minor, &ver.Patch)
+	fmt.Sscanf(s, format, &ver.Major, &ver.Minor, &ver.Patch)
 	return ver
 }
 
